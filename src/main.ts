@@ -20,6 +20,7 @@ import { ClienteService } from "./services/ClienteService";
 import { EmprestimoService } from "./services/EmprestimoService";
 
 import { encerrarEntrada } from "./utils/entrada";
+import { carregarDadosIniciais } from "./data/seed";
 
 async function iniciar(): Promise<void> {
   // Repositorios
@@ -55,8 +56,13 @@ async function iniciar(): Promise<void> {
   );
 
 
-  // Executar o menu principal
+  // Execucao
   try {
+    // carrega os dados
+    await carregarDadosIniciais({
+      autorRepository
+    });
+    // Executar o menu principal
     await menuPrincipal.executar();
   } finally {
     encerrarEntrada();
