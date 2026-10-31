@@ -89,3 +89,15 @@ SELECT * FROM autores ORDER BY id;
 SELECT * FROM clientes ORDER BY id;
 SELECT * FROM livros ORDER BY id;
 SELECT * FROM emprestimos ORDER BY id;
+
+-- UPDATE
+
+-- Troca o email de um cliente
+UPDATE clientes
+SET email = 'diego.rocha@update.com'
+WHERE id = 4;
+
+-- Adiciona mais exemplares no estoque
+UPDATE livros
+SET quantidade_disponivel = 9
+WHERE id = 4;
