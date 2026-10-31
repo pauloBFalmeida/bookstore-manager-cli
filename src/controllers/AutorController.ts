@@ -40,6 +40,29 @@ export class AutorController {
     }
   }
 
+  async consultar(): Promise<void> {
+    try {
+      const id = await perguntarNumero("Id do autor: ");
+      const autor = await this.autorService.buscarPorId(id);
+      console.log("\n--- Autor encontrado ---");
+      this.exibirAutor(autor);
+    } catch (erro) {
+      tratarErro(erro);
+    }
+  }
+
+  async atualizar(): Promise<void> {
+    try {
+      const id = await perguntarNumero("Id do autor a atualizar: ");
+      const autorAtual = await this.autorService.buscarPorId(id);
+      const novoNome = await perguntar(`Novo nome (atual: ${autorAtual.nome}): `);
+      const autor = await this.autorService.atualizar(id, novoNome);
+      console.log(`\nAutor atualizado com sucesso! (${autor.id} - ${autor.nome})`);
+    } catch (erro) {
+      tratarErro(erro);
+    }
+  }
+
   private exibirAutor(autor: Autor): void {
     console.log(`${autor.id} - ${autor.nome}`);
   }
