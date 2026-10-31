@@ -21,7 +21,12 @@ export class ClienteRepository {
   }
 
   async buscarPorEmail(email: string): Promise<Cliente | undefined> {
-    return Array.from(this.clientes.values()).find((cliente) => cliente.email === email);
+    // transforma todo texto em minusculo
+    const emailBuscado = email.toLowerCase();
+    // busca nos emails considerando minusculos 
+    return Array.from(this.clientes.values()).find(
+      (cliente) => cliente.email.toLowerCase() === emailBuscado,
+    );
   }
 
   async atualizar(cliente: Cliente): Promise<boolean> {
