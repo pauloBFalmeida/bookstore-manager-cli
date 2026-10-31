@@ -2,10 +2,14 @@ import { Cliente } from "../models/Cliente";
 import { ClienteRepository } from "../repositories/ClienteRepository";
 import { ErroDeNegocio } from "../utils/ErroDeNegocio";
 import { validarEmail, validarTextoObrigatorio } from "../utils/validacoes";
+import { EmprestimoRepository } from "../repositories/EmprestimoRepository";
 
 export class ClienteService {
-  constructor(private readonly clienteRepository: ClienteRepository) {}
-
+  constructor(
+    private readonly clienteRepository: ClienteRepository,
+    private readonly emprestimoRepository: EmprestimoRepository,
+  ) {}
+  
   async cadastrar(nome: string, email: string): Promise<Cliente> {
     const nomeValido = validarTextoObrigatorio(nome, "nome do cliente");
     const emailValido = validarEmail(email);
@@ -18,6 +22,15 @@ export class ClienteService {
 
   async remover(id: number): Promise<void> {
     await this.buscarPorId(id);
+
+    // verifica se possui emprestimos
+    const emprestimos = await this.emprestimoRepository.listarPorCliente(id);
+    if (emprestimos.length > 0) {
+      throw new ErroDeNegocio(
+        `Não é possível remover o cliente, ele possui ${emprestimos.length} emprestimos.`,
+      );
+    }
+
     await this.clienteRepository.remover(id);
   }
 

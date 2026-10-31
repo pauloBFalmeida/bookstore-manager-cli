@@ -3,11 +3,13 @@ import { LivroRepository } from "../repositories/LivroRepository";
 import { ErroDeNegocio } from "../utils/ErroDeNegocio";
 import { validarTextoObrigatorio } from "../utils/validacoes";
 import { AutorService } from "./AutorService";
+import { EmprestimoRepository } from "../repositories/EmprestimoRepository";
 
 export class LivroService {
   constructor(
     private readonly livroRepository: LivroRepository,
     private readonly autorService: AutorService,
+    private readonly emprestimoRepository: EmprestimoRepository,
   ) {}
 
   async cadastrar(titulo: string,
@@ -49,7 +51,35 @@ export class LivroService {
 
   async remover(id: number): Promise<void> {
     await this.buscarPorId(id);
+
+    // verifica se ele nao esta em emprestimos
+    const emprestimos = await this.emprestimoRepository.listarPorLivro(id);
+    if (emprestimos.length > 0) {
+      throw new ErroDeNegocio(
+        `Não é possível remover o livro, ele possui ${emprestimos.length} emprestimos registrados.`,
+      );
+    }
+
     await this.livroRepository.remover(id);
+  }
+
+  async reduzirDisponivel(id: number): Promise<void> {
+    const livro = await this.buscarPorId(id);
+    // se nao tiver disponivel
+    if (livro.quantidadeDisponivel <= 0) {
+      throw new ErroDeNegocio(
+        `O livro "${livro.titulo}" não esta disponível.`,
+      );
+    }
+    // se estiver disponivel, retire 1 da quantidade
+    livro.quantidadeDisponivel -= 1;
+    await this.livroRepository.atualizar(livro);
+  }
+
+  async aumentarDisponivel(id: number): Promise<void> {
+    const livro = await this.buscarPorId(id);
+    livro.quantidadeDisponivel += 1;
+    await this.livroRepository.atualizar(livro);
   }
 
   private validarQuantidade(quantidade: number): void {
