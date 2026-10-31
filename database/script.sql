@@ -12,21 +12,21 @@ DROP TABLE IF EXISTS autores CASCADE;
 
 CREATE TABLE autores (
     id   INTEGER      NOT NULL,
-    nome VARCHAR(150) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
     CONSTRAINT pk_autores PRIMARY KEY (id)
 );
 
 CREATE TABLE clientes (
     id    INTEGER      NOT NULL,
-    nome  VARCHAR(150) NOT NULL,
-    email VARCHAR(150) NOT NULL,
+    nome  VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     CONSTRAINT pk_clientes PRIMARY KEY (id),
     CONSTRAINT uq_clientes_email UNIQUE (email)
 );
 
 CREATE TABLE livros (
     id                    INTEGER      NOT NULL,
-    titulo                VARCHAR(200) NOT NULL,
+    titulo                VARCHAR(100) NOT NULL,
     quantidade_disponivel INTEGER      NOT NULL DEFAULT 0,
     autor_id              INTEGER      NOT NULL,
     CONSTRAINT pk_livros PRIMARY KEY (id),
