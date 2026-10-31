@@ -52,6 +52,25 @@ export class LivroService {
     await this.livroRepository.remover(id);
   }
 
+  async reduzirDisponivel(id: number): Promise<void> {
+    const livro = await this.buscarPorId(id);
+    // se nao tiver disponivel
+    if (livro.quantidadeDisponivel <= 0) {
+      throw new ErroDeNegocio(
+        `O livro "${livro.titulo}" não esta disponível.`,
+      );
+    }
+    // se estiver disponivel, retire 1 da quantidade
+    livro.quantidadeDisponivel -= 1;
+    await this.livroRepository.atualizar(livro);
+  }
+
+  async aumentarDisponivel(id: number): Promise<void> {
+    const livro = await this.buscarPorId(id);
+    livro.quantidadeDisponivel += 1;
+    await this.livroRepository.atualizar(livro);
+  }
+
   private validarQuantidade(quantidade: number): void {
     if (!Number.isInteger(quantidade) || quantidade < 0) {
       throw new ErroDeNegocio(
