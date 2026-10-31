@@ -1,4 +1,4 @@
--- DDL 
+-- DDL (definicao da estrutura)
 -- ----------------------------------------------
 
 -- Remove as tabelas, para executar o script mais de uma vez
@@ -21,3 +21,20 @@ CREATE TABLE clientes (
     CONSTRAINT pk_clientes PRIMARY KEY (id),
     CONSTRAINT uq_clientes_email UNIQUE (email)
 );
+
+-- DML (Manipulacao de dados)
+-- ----------------------------------------------
+
+INSERT INTO autores (id, nome) VALUES
+    (1, 'Milton Nascimento'),
+    (2, 'Caetano Veloso'),
+    (3, 'Gilberto Gil'),
+    (4, 'Chico Buarque'),
+    (5, 'Elis Regina');
+
+INSERT INTO clientes (id, nome, email) VALUES
+    (1, 'Ana Souza',     'ana.souza@email.com'),
+    (2, 'Bruno Lima',    'bruno.lima@email.com'),
+    (3, 'Carla Mendes',  'carla.mendes@email.com'),
+    (4, 'Diego Rocha',   'diego.rocha@email.com'),
+    (5, 'Elisa Martins', 'elisa.martins@email.com');
