@@ -2,9 +2,13 @@ import { Autor } from "../models/Autor";
 import { AutorRepository } from "../repositories/AutorRepository";
 import { ErroDeNegocio } from "../utils/ErroDeNegocio";
 import { validarTextoObrigatorio } from "../utils/validacoes";
+import { LivroRepository } from "../repositories/LivroRepository";
 
 export class AutorService {
-  constructor(private readonly autorRepository: AutorRepository) {}
+    constructor(
+        private readonly autorRepository: AutorRepository,
+        private readonly livroRepository: LivroRepository,
+    ) {}
 
   async cadastrar(nome: string): Promise<Autor> {
     const nomeValido = validarTextoObrigatorio(nome, "nome do autor");
@@ -15,6 +19,14 @@ export class AutorService {
 
   async remover(id: number): Promise<void> {
     await this.buscarPorId(id);
+    // verifica se o autor possui livros cadastrados a ele, entao nao remove se for o caso
+    const livros = await this.livroRepository.listarPorAutor(id);
+    if (livros.length > 0) {
+      throw new ErroDeNegocio(
+        `Não é possível remover o autor: ele possui ${livros.length} livros cadastrados.`,
+      );
+    }
+    
     await this.autorRepository.remover(id);
   }
 
