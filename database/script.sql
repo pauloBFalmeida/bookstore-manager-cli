@@ -101,3 +101,12 @@ WHERE id = 4;
 UPDATE livros
 SET quantidade_disponivel = 9
 WHERE id = 4;
+
+-- DELETE
+
+-- Remover um cliente que não possui emprestimos
+DELETE FROM clientes
+WHERE id = 5;
+
+-- Remocao que deve ser recusada, pois o livro possui emprestimos
+-- DELETE FROM livros WHERE id = 1;
