@@ -3,11 +3,13 @@ import { LivroRepository } from "../repositories/LivroRepository";
 import { ErroDeNegocio } from "../utils/ErroDeNegocio";
 import { validarTextoObrigatorio } from "../utils/validacoes";
 import { AutorService } from "./AutorService";
+import { EmprestimoRepository } from "../repositories/EmprestimoRepository";
 
 export class LivroService {
   constructor(
     private readonly livroRepository: LivroRepository,
     private readonly autorService: AutorService,
+    private readonly emprestimoRepository: EmprestimoRepository,
   ) {}
 
   async cadastrar(titulo: string,
@@ -49,6 +51,15 @@ export class LivroService {
 
   async remover(id: number): Promise<void> {
     await this.buscarPorId(id);
+
+    // verifica se ele nao esta em emprestimos
+    const emprestimos = await this.emprestimoRepository.listarPorLivro(id);
+    if (emprestimos.length > 0) {
+      throw new ErroDeNegocio(
+        `Não é possível remover o livro, ele possui ${emprestimos.length} emprestimos registrados.`,
+      );
+    }
+
     await this.livroRepository.remover(id);
   }
 
