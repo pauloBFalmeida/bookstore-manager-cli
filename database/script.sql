@@ -22,6 +22,17 @@ CREATE TABLE clientes (
     CONSTRAINT uq_clientes_email UNIQUE (email)
 );
 
+CREATE TABLE livros (
+    id                    INTEGER      NOT NULL,
+    titulo                VARCHAR(200) NOT NULL,
+    quantidade_disponivel INTEGER      NOT NULL DEFAULT 0,
+    autor_id              INTEGER      NOT NULL,
+    CONSTRAINT pk_livros PRIMARY KEY (id),
+    CONSTRAINT fk_livros_autor FOREIGN KEY (autor_id) REFERENCES autores (id),
+    CONSTRAINT ck_livros_quantidade CHECK (quantidade_disponivel >= 0)
+);
+
+
 -- DML (Manipulacao de dados)
 -- ----------------------------------------------
 
@@ -38,3 +49,11 @@ INSERT INTO clientes (id, nome, email) VALUES
     (3, 'Carla Mendes',  'carla.mendes@email.com'),
     (4, 'Diego Rocha',   'diego.rocha@email.com'),
     (5, 'Elisa Martins', 'elisa.martins@email.com');
+
+INSERT INTO livros (id, titulo, quantidade_disponivel, autor_id) VALUES
+    (1, 'Travessia',          2, 1),
+    (2, 'Maria, Maria',       1, 1),
+    (3, 'Sampa',              0, 2),
+    (4, 'Aquele Abraço',      3, 3),
+    (5, 'Andar com Fé',       2, 3),
+    (6, 'Construção',         1, 4);
