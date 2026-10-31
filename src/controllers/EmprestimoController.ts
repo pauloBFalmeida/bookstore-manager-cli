@@ -1,6 +1,7 @@
 import { EmprestimoDetalhado } from "../models/Emprestimo";
 import { EmprestimoService } from "../services/EmprestimoService";
 import { perguntarNumero } from "../utils/entrada";
+import { formatarData } from "../utils/formatacao";
 import { tratarErro } from "../utils/tratarErro";
 
 export class EmprestimoController {
@@ -43,12 +44,12 @@ export class EmprestimoController {
 
   private exibirEmprestimo(emprestimo: EmprestimoDetalhado): void {
     const situacao = emprestimo.dataDevolucao
-      ? `Devolvido em ${emprestimo.dataDevolucao}`
+      ? `Devolvido em ${formatarData(emprestimo.dataDevolucao)}`
       : "Ativo";
 
     console.log(
       `${emprestimo.id} - Livro: ${emprestimo.tituloLivro} | Cliente: ${emprestimo.nomeCliente} | ` +
-        `Emprestado em ${emprestimo.dataEmprestimo} | ${situacao}`,
+        `Emprestado em ${formatarData(emprestimo.dataEmprestimo)} | ${situacao}`,
     );
   }
 }
