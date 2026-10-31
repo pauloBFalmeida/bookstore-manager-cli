@@ -14,6 +14,10 @@ export class Emprestimo implements IEmprestimo {
     public readonly dataEmprestimo: Date,
     public dataDevolucao: Date | null = null,
   ) {}
+
+  get ativo(): boolean {
+    return this.dataDevolucao === null;
+  }
 }
 
 export interface EmprestimoDetalhado {
