@@ -51,6 +51,8 @@ CREATE TABLE emprestimos (
 -- DML (Manipulacao de dados)
 -- ----------------------------------------------
 
+-- Insert
+
 INSERT INTO autores (id, nome) VALUES
     (1, 'Milton Nascimento'),
     (2, 'Caetano Veloso'),
@@ -80,3 +82,10 @@ INSERT INTO emprestimos (id, livro_id, cliente_id, data_emprestimo, data_devoluc
     (4, 1, 2, '2026-10-15', NULL),
     (5, 4, 1, '2026-10-05', '2026-10-12'),
     (6, 1, 4, '2026-09-20', '2026-09-27');
+
+-- SELECT
+
+SELECT * FROM autores ORDER BY id;
+SELECT * FROM clientes ORDER BY id;
+SELECT * FROM livros ORDER BY id;
+SELECT * FROM emprestimos ORDER BY id;
