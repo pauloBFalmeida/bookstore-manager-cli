@@ -3,6 +3,8 @@
 
 -- Remove as tabelas, para executar o script mais de uma vez
 -- filhas primeiro, por chaves estrangeiras
+DROP TABLE IF EXISTS emprestimos CASCADE;
+DROP TABLE IF EXISTS livros CASCADE;
 DROP TABLE IF EXISTS clientes CASCADE;
 DROP TABLE IF EXISTS autores CASCADE;
 
@@ -32,6 +34,19 @@ CREATE TABLE livros (
     CONSTRAINT ck_livros_quantidade CHECK (quantidade_disponivel >= 0)
 );
 
+CREATE TABLE emprestimos (
+    id              INTEGER NOT NULL,
+    livro_id        INTEGER NOT NULL,
+    cliente_id      INTEGER NOT NULL,
+    data_emprestimo DATE    NOT NULL,
+    data_devolucao  DATE,
+    CONSTRAINT pk_emprestimos PRIMARY KEY (id),
+    CONSTRAINT fk_emprestimos_livro FOREIGN KEY (livro_id) REFERENCES livros (id),
+    CONSTRAINT fk_emprestimos_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
+    CONSTRAINT ck_emprestimos_datas CHECK (
+        data_devolucao IS NULL OR data_devolucao >= data_emprestimo
+    )
+);
 
 -- DML (Manipulacao de dados)
 -- ----------------------------------------------
@@ -57,3 +72,11 @@ INSERT INTO livros (id, titulo, quantidade_disponivel, autor_id) VALUES
     (4, 'Aquele Abraço',      3, 3),
     (5, 'Andar com Fé',       2, 3),
     (6, 'Construção',         1, 4);
+
+INSERT INTO emprestimos (id, livro_id, cliente_id, data_emprestimo, data_devolucao) VALUES
+    (1, 1, 1, '2026-10-01', '2026-10-08'),
+    (2, 3, 2, '2026-10-10', NULL),
+    (3, 2, 3, '2026-10-12', NULL),
+    (4, 1, 2, '2026-10-15', NULL),
+    (5, 4, 1, '2026-10-05', '2026-10-12'),
+    (6, 1, 4, '2026-09-20', '2026-09-27');
