@@ -1,12 +1,13 @@
 import { Autor } from "../models/Autor";
 import { AutorRepository } from "../repositories/AutorRepository";
 import { ErroDeNegocio } from "../utils/ErroDeNegocio";
+import { validarTextoObrigatorio } from "../utils/validacoes";
 
 export class AutorService {
   constructor(private readonly autorRepository: AutorRepository) {}
 
   async cadastrar(nome: string): Promise<Autor> {
-    const nomeValido = this.validarNome(nome);
+    const nomeValido = validarTextoObrigatorio(nome, "nome do autor");
     const id = await this.autorRepository.gerarProximoId();
     const autor = new Autor(id, nomeValido);
     return this.autorRepository.inserir(autor);
@@ -16,7 +17,7 @@ export class AutorService {
     await this.buscarPorId(id);
     await this.autorRepository.remover(id);
   }
-  
+
   async listar(): Promise<Autor[]> {
     return this.autorRepository.listarTodos();
   }
@@ -31,16 +32,8 @@ export class AutorService {
 
   async atualizar(id: number, novoNome: string): Promise<Autor> {
     const autor = await this.buscarPorId(id);
-    autor.nome = this.validarNome(novoNome);
+    autor.nome = validarTextoObrigatorio(novoNome, "nome do autor");
     await this.autorRepository.atualizar(autor);
     return autor;
-  }
-
-  private validarNome(nome: string): string {
-    const nomeValido = nome.trim();
-    if (nomeValido === "") {
-      throw new ErroDeNegocio("O nome do autor não pode ser vazio.");
-    }
-    return nomeValido;
   }
 }
