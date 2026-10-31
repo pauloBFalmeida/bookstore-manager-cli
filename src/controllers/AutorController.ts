@@ -1,6 +1,7 @@
 import { Autor } from "../models/Autor";
 import { AutorService } from "../services/AutorService";
 import { perguntar, perguntarNumero } from "../utils/entrada";
+import { tratarErro } from "../utils/tratarErro";
 
 export class AutorController {
   constructor(private readonly autorService: AutorService) {}
@@ -10,7 +11,9 @@ export class AutorController {
       const nome = await perguntar("Nome do autor: ");
       const autor = await this.autorService.cadastrar(nome);
       console.log(`\nAutor cadastrado com sucesso! (id ${autor.id})`);
-    } catch (erro) { }
+    } catch (erro) {
+      tratarErro(erro);
+    }
   }
 
   async remover(): Promise<void> {
@@ -18,7 +21,9 @@ export class AutorController {
       const id = await perguntarNumero("Id do autor a remover: ");
       await this.autorService.remover(id);
       console.log("\nAutor removido com sucesso!");
-    } catch (erro) { }
+    } catch (erro) {
+      tratarErro(erro);
+    }
   }
 
   async listar(): Promise<void> {
@@ -30,7 +35,9 @@ export class AutorController {
       }
       console.log("\n--- Autores ---");
       autores.forEach((autor) => console.log(autor));
-    } catch (erro) { }
+    } catch (erro) {
+      tratarErro(erro);
+    }
   }
 
 }
