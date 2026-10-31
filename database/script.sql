@@ -2,8 +2,9 @@
 -- ----------------------------------------------
 
 -- Remove as tabelas, para executar o script mais de uma vez
-DROP TABLE IF EXISTS autores CASCADE;
+-- filhas primeiro, por chaves estrangeiras
 DROP TABLE IF EXISTS clientes CASCADE;
+DROP TABLE IF EXISTS autores CASCADE;
 
 -- Cria as tabelas
 
