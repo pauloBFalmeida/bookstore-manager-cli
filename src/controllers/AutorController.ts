@@ -34,10 +34,13 @@ export class AutorController {
         return;
       }
       console.log("\n--- Autores ---");
-      autores.forEach((autor) => console.log(autor));
+      autores.forEach((autor) => this.exibirAutor(autor));
     } catch (erro) {
       tratarErro(erro);
     }
   }
 
+  private exibirAutor(autor: Autor): void {
+    console.log(`${autor.id} - ${autor.nome}`);
+  }
 }
