@@ -58,9 +58,12 @@ async function iniciar(): Promise<void> {
 
   // Execucao
   try {
-    // carrega os dados
+    // carrega os dados (iguais aos banco de dados)
     await carregarDadosIniciais({
-      autorRepository
+      autorRepository,
+      livroRepository,
+      clienteRepository,
+      emprestimoRepository
     });
     // Executar o menu principal
     await menuPrincipal.executar();
