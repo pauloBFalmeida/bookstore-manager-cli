@@ -15,6 +15,11 @@ interface Repositorios {
   emprestimoRepository: EmprestimoRepository;
 }
 
+const converterData = (texto: string): Date => {
+  const [ano, mes, dia] = texto.split('-').map(Number);
+  return new Date(ano, mes - 1, dia);
+}
+
 // Os dados sao iguais no script.sql
 export async function carregarDadosIniciais(
   repositorios: Repositorios,
@@ -44,6 +49,15 @@ export async function carregarDadosIniciais(
     new Cliente(5, "Elisa Martins", "elisa.martins@email.com"),
   ];
 
+  const emprestimos = [
+    new Emprestimo(1, 1, 1, converterData('2026-10-01'), converterData('2026-10-08')),
+    new Emprestimo(2, 3, 2, converterData('2026-10-10'), null),
+    new Emprestimo(3, 2, 3, converterData('2026-10-12'), null),
+    new Emprestimo(4, 1, 2, converterData('2026-10-15'), null),
+    new Emprestimo(5, 4, 1, converterData('2026-10-5'), converterData('2026-10-12')),
+    new Emprestimo(6, 1, 4, converterData('2026-9-20'), converterData('2026-9-27')),
+  ];
+
   for (const autor of autores) {
     await repositorios.autorRepository.inserir(autor);
   }
@@ -52,5 +66,8 @@ export async function carregarDadosIniciais(
   }
   for (const cliente of clientes) {
     await repositorios.clienteRepository.inserir(cliente);
+  }
+  for (const emprestimo of emprestimos) {
+    await repositorios.emprestimoRepository.inserir(emprestimo);
   }
 }
