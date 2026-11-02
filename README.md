@@ -36,3 +36,51 @@ Praticar a criação e design de um sistema.
 | PostgreSQL | Banco de dados |
 | draw.io | Elaboração do diagrama |
 | GitHub | Versionamento do código |
+
+
+## Requisitos para execução
+
+- **Node.js** 18 e **npm**
+- **PostgreSQL** 12 ou superior - para executar o `script.sql`
+- **Código** desse repositório
+
+
+## Execução do script SQL no PostgreSQL
+
+O arquivo `database/script.sql` cria o banco de dados relacional. Primeiro começa com a criação das tabelas (DDL). Em sequência (DML) insere os dados de exemplo e executa atualizações, remoções e depois consultas relacionais.
+
+Ele pode ser executado várias vezes, pois no início as tabelas anteriores são deletadas, para poderem ser recriadas a cada execução.
+
+**1. Criar o banco de dados**
+
+Em Linux (com PostgreSQL):
+
+```bash
+sudo -u postgres createdb bookstore
+```
+
+**2. Executar o script**
+
+```bash
+sudo -u postgres psql -d bookstore < database/script.sql
+```
+
+Devem aparecer os livros cadastrados. Na saída da execução completa também aparecem os resultados das consultas relacionais.
+
+
+## DER do banco de dados
+
+![DER do banco de dados](database/DER.pdf)
+
+| Tabela | Campos |
+| :---- | :---- |
+| `autores` | `id` (PK), `nome` |
+| `clientes` | `id` (PK), `nome`, `email` (único) |
+| `livros` | `id` (PK), `titulo`, `quantidade_disponivel` (>= 0), `autor_id` (FK) |
+| `emprestimos` | `id` (PK), `livro_id` (FK), `cliente_id` (FK), `data_emprestimo`, `data_devolucao` (null enquanto o empréstimo está ativo) |
+
+Relacionamentos:
+
+- 1 **autor** possui N **livros** (1:N);
+- 1 **livro** está em N **empréstimos** (1:N);
+- 1 **cliente** pode fazer N **empréstimos** (1:N).
