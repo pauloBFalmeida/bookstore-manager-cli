@@ -70,7 +70,7 @@ Devem aparecer os livros cadastrados. Na saída da execução completa também a
 
 ## DER do banco de dados
 
-![DER do banco de dados](database/DER.pdf)
+![DER do banco de dados](database/DER.png)
 
 | Tabela | Campos |
 | :---- | :---- |
