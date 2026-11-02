@@ -186,3 +186,54 @@ Decisões de projeto:
 - Dados de exemplo, atualização e remoção de registros.
 - Consultas relacionais.
 
+
+## Estrutura de pastas
+
+### Raiz do projeto
+
+| Pasta / arquivo | Descrição |
+| :---- | :---- |
+| `database/` | Projeto do banco de dados: imagem do DER e `script.sql` (estrutura, dados de exemplo, consultas em PostgreSQL) |
+| `src/` | Código-fonte da aplicação em TypeScript |
+| `.gitignore` | Lista do que o Git deve ignorar, como `node_modules/` e `dist/` |
+| `package.json` | Dependências do projeto e scripts (`dev`, `build`, `start`) |
+| `package-lock.json` | Versões exatas das dependências instaladas |
+| `tsconfig.json` | Configuração do compilador TypeScript |
+| `README.md` | Documentação do projeto |
+
+### Dentro de `src/`
+
+| Pasta / arquivo | Descrição | Arquivos |
+| :---- | :---- | :---- |
+| `main.ts` | **Ponto de entrada**, cria os repositories, services, controllers e menus, carrega os dados iniciais e abre o menu principal | `main.ts` |
+| `controllers/` | Camada de apresentação: recebem as entradas do usuário, chamam os services e exibem resultados e mensagens | `AutorController.ts`, `ClienteController.ts`, `EmprestimoController.ts`, `LivroController.ts` |
+| `services/` | Regras de negócio e validações (autor existe, livro disponível, e-mail único etc.) | `AutorService.ts`, `ClienteService.ts`, `EmprestimoService.ts`, `LivroService.ts` |
+| `repositories/` | Acesso aos dados: guardam e recuperam as informações em memória | `AutorRepository.ts`, `ClienteRepository.ts`, `EmprestimoRepository.ts`, `LivroRepository.ts` |
+| `models/` | Classes e interfaces que representam as entidades do sistema | `Autor.ts`, `Cliente.ts`, `Emprestimo.ts`, `Livro.ts` |
+| `menus/` | Exibição dos menus e navegação entre as opções no terminal | `MenuAutores.ts`, `MenuClientes.ts`, `MenuEmprestimos.ts`, `MenuLivros.ts`, `MenuPrincipal.ts` |
+| `utils/` | Funções auxiliares reutilizadas pelas outras camadas: leitura do terminal, validações, formatação de datas e tratamento de erros | `ErroDeNegocio.ts`, `entrada.ts`, `formatacao.ts`, `tratarErro.ts`, `validacoes.ts` |
+| `data/` | Dados iniciais carregados ao iniciar a aplicação, iguais aos `INSERT` do `script.sql` | `seed.ts` |
+
+
+## Versionamento
+
+Uma branch por funcionalidade, integradas à `develop` e, ao final na `main`:
+
+| Branch | Conteúdo |
+| :---- | :---- |
+| `main` | Versão estável |
+| `develop` | Integração das funcionalidades |
+| `feat/autores` | Módulo de autores |
+| `feat/livros` | Módulo de livros |
+| `feat/clientes` | Módulo de clientes |
+| `feat/emprestimos` | Módulo de empréstimos |
+| `feat/banco-dados` | `script.sql`, DER e dados iniciais |
+| `docs/readme` | Documentação |
+
+## Kanban
+
+Acompanhamento das tarefas do projeto: [Link do Kanban](https://github.com/users/pauloBFalmeida/projects/2/views/1)
+
+## Integrantes da equipe
+
+- **Paulo Barbato Fogaça de Almeida** - desenvolvimento individual
