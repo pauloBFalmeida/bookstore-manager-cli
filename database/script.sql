@@ -1,0 +1,179 @@
+-- DDL (definicao da estrutura)
+-- ----------------------------------------------
+
+-- Remove as tabelas, para executar o script mais de uma vez
+-- filhas primeiro, por chaves estrangeiras
+DROP TABLE IF EXISTS emprestimos CASCADE;
+DROP TABLE IF EXISTS livros CASCADE;
+DROP TABLE IF EXISTS clientes CASCADE;
+DROP TABLE IF EXISTS autores CASCADE;
+
+-- Cria as tabelas
+
+CREATE TABLE autores (
+    id   INTEGER      NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_autores PRIMARY KEY (id)
+);
+
+CREATE TABLE clientes (
+    id    INTEGER      NOT NULL,
+    nome  VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_clientes PRIMARY KEY (id),
+    CONSTRAINT uq_clientes_email UNIQUE (email)
+);
+
+CREATE TABLE livros (
+    id                    INTEGER      NOT NULL,
+    titulo                VARCHAR(100) NOT NULL,
+    quantidade_disponivel INTEGER      NOT NULL DEFAULT 0,
+    autor_id              INTEGER      NOT NULL,
+    CONSTRAINT pk_livros PRIMARY KEY (id),
+    CONSTRAINT fk_livros_autor FOREIGN KEY (autor_id) REFERENCES autores (id),
+    CONSTRAINT ck_livros_quantidade CHECK (quantidade_disponivel >= 0)
+);
+
+CREATE TABLE emprestimos (
+    id              INTEGER NOT NULL,
+    livro_id        INTEGER NOT NULL,
+    cliente_id      INTEGER NOT NULL,
+    data_emprestimo DATE    NOT NULL,
+    data_devolucao  DATE,
+    CONSTRAINT pk_emprestimos PRIMARY KEY (id),
+    CONSTRAINT fk_emprestimos_livro FOREIGN KEY (livro_id) REFERENCES livros (id),
+    CONSTRAINT fk_emprestimos_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
+    CONSTRAINT ck_emprestimos_datas CHECK (
+        data_devolucao IS NULL OR data_devolucao >= data_emprestimo
+    )
+);
+
+-- DML (Manipulacao de dados)
+-- ----------------------------------------------
+
+-- Insert
+
+INSERT INTO autores (id, nome) VALUES
+    (1, 'Milton Nascimento'),
+    (2, 'Caetano Veloso'),
+    (3, 'Gilberto Gil'),
+    (4, 'Chico Buarque'),
+    (5, 'Elis Regina');
+
+INSERT INTO clientes (id, nome, email) VALUES
+    (1, 'Ana Souza',     'ana.souza@email.com'),
+    (2, 'Bruno Lima',    'bruno.lima@email.com'),
+    (3, 'Carla Mendes',  'carla.mendes@email.com'),
+    (4, 'Diego Rocha',   'diego.rocha@email.com'),
+    (5, 'Elisa Martins', 'elisa.martins@email.com');
+
+INSERT INTO livros (id, titulo, quantidade_disponivel, autor_id) VALUES
+    (1, 'Travessia',          2, 1),
+    (2, 'Maria, Maria',       1, 1),
+    (3, 'Sampa',              0, 2),
+    (4, 'Aquele Abraço',      3, 3),
+    (5, 'Andar com Fé',       2, 3),
+    (6, 'Construção',         1, 4);
+
+INSERT INTO emprestimos (id, livro_id, cliente_id, data_emprestimo, data_devolucao) VALUES
+    (1, 1, 1, '2026-10-01', '2026-10-08'),
+    (2, 3, 2, '2026-10-10', NULL),
+    (3, 2, 3, '2026-10-12', NULL),
+    (4, 1, 2, '2026-10-15', NULL),
+    (5, 4, 1, '2026-10-05', '2026-10-12'),
+    (6, 1, 4, '2026-09-20', '2026-09-27');
+
+-- SELECT
+
+SELECT * FROM autores ORDER BY id;
+SELECT * FROM clientes ORDER BY id;
+SELECT * FROM livros ORDER BY id;
+SELECT * FROM emprestimos ORDER BY id;
+
+-- UPDATE
+
+-- Troca o email de um cliente
+UPDATE clientes
+SET email = 'diego.rocha@update.com'
+WHERE id = 4;
+
+-- Adiciona mais exemplares no estoque
+UPDATE livros
+SET quantidade_disponivel = 9
+WHERE id = 4;
+
+-- DELETE
+
+-- Remover um cliente que não possui emprestimos
+DELETE FROM clientes
+WHERE id = 5;
+
+-- Remocao que deve ser recusada, pois o livro possui emprestimos
+-- DELETE FROM livros WHERE id = 1;
+
+
+-- Consultas Relacionais
+-- ----------------------------------------------
+
+-- INNER JOIN
+-- Empréstimos, titulo, cliente, data
+-- só aparecem se estiverem presentes nas 3 tabelas.
+
+SELECT e.id AS emprestimo,
+       l.titulo AS titulo,
+       c.nome AS cliente,
+       e.data_emprestimo
+FROM emprestimos e
+INNER JOIN livros l   ON l.id = e.livro_id
+INNER JOIN clientes c ON c.id = e.cliente_id
+ORDER BY e.id;
+
+--  LEFT JOIN
+-- autor e titulo 
+-- quem nao tem livro cadastrado aparece mesmo assim só que com coluna titulo vazia
+SELECT a.nome AS autor,
+       l.titulo AS titulo
+FROM autores a
+LEFT JOIN livros l ON l.autor_id = a.id
+ORDER BY a.nome, l.titulo;
+
+-- GROUP BY
+-- Total de empréstimos de cada cliente
+-- agrupa os clientes, e faz o COUNT em cada grupo
+SELECT c.nome AS cliente,
+       COUNT(e.id) AS total_emprestimos
+FROM clientes c
+INNER JOIN emprestimos e ON e.cliente_id = c.id
+GROUP BY c.id, c.nome
+ORDER BY c.nome;
+
+-- ORDER BY
+-- titulos em ordem por autor (A a Z)
+-- dentro de cada autor pela maior quantidade disponivel
+SELECT a.nome AS autor,
+       l.titulo AS titulo,
+       l.quantidade_disponivel
+FROM livros l
+INNER JOIN autores a ON a.id = l.autor_id
+ORDER BY a.nome ASC, l.quantidade_disponivel DESC;
+
+-- LIMIT
+-- 3 empréstimos mais recentes, ordenados
+SELECT e.id AS emprestimo,
+       l.titulo AS titulo,
+       c.nome AS cliente,
+       e.data_emprestimo
+FROM emprestimos e
+INNER JOIN livros l   ON l.id = e.livro_id
+INNER JOIN clientes c ON c.id = e.cliente_id
+ORDER BY e.data_emprestimo DESC
+LIMIT 3;
+
+-- COUNT, SUM, AVG, MIN, MAX
+SELECT COUNT(l.id)                            AS total_livros,
+       COUNT(DISTINCT l.autor_id)             AS autores_com_livros,
+       SUM(l.quantidade_disponivel)           AS total_exemplares,
+       ROUND(AVG(l.quantidade_disponivel), 2) AS media_por_livro,
+       MIN(l.quantidade_disponivel)           AS menor_quantidade,
+       MAX(l.quantidade_disponivel)           AS maior_quantidade
+FROM livros l;
