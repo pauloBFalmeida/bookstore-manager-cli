@@ -110,3 +110,29 @@ WHERE id = 5;
 
 -- Remocao que deve ser recusada, pois o livro possui emprestimos
 -- DELETE FROM livros WHERE id = 1;
+
+
+-- Consultas Relacionais
+-- ----------------------------------------------
+
+-- INNER JOIN
+-- Empréstimos, titulo, cliente, data
+-- só aparecem se estiverem presentes nas 3 tabelas.
+
+SELECT e.id AS emprestimo,
+       l.titulo AS titulo,
+       c.nome AS cliente,
+       e.data_emprestimo
+FROM emprestimos e
+INNER JOIN livros l   ON l.id = e.livro_id
+INNER JOIN clientes c ON c.id = e.cliente_id
+ORDER BY e.id;
+
+--  LEFT JOIN
+-- autor e titulo 
+-- quem nao tem livro cadastrado aparece mesmo assim só que com coluna titulo vazia
+SELECT a.nome AS autor,
+       l.titulo AS titulo
+FROM autores a
+LEFT JOIN livros l ON l.autor_id = a.id
+ORDER BY a.nome, l.titulo;
