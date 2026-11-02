@@ -1,2 +1,38 @@
-# bookstore-manager-cli
-Aplicação em Node.js com TypeScript criado para o Projeto Avaliativo para o curso de Back-end
+# BookStore Manager CLI
+
+Aplicação de linha de comando para gerenciar o acervo e os empréstimos de uma biblioteca criado para o Projeto Avaliativo do curso de Back-end Node.
+
+Desenvolvida em **Node.js** e **TypeScript**, com banco de dados relacional em **PostgreSQL**.
+
+# Descrição
+
+**BookStore Manager CLI** é uma aplicação que permite cadastrar autores, livros, clientes e controlar os empréstimos e devoluções do acervo, através de menus interativos no terminal de comando.
+
+O projeto é dividido em duas partes:
+
+1. **Aplicação em TypeScript:** armazena os dados em memória (nos repositories). Os dados são carregados no início a partir de `src/data/seed.ts`. A aplicação não guarda novos dados apos ser encerrada.
+2. **Banco de dados:** o arquivo `database/script.sql` e o DER descrevem o modelo relacional em PostgreSQL. A aplicação não se conecta ao banco, porém o `src/data/seed.ts` possui os mesmos dados de exemplo que o `database/script.sql`.
+
+Para a criação do exemplo com autores, livros, clientes e empréstimos, foram usadas músicas MPB, em que cada **autor** é um cantor, e cada **livro** é uma **música**. Apenas para diversificar os exemplos, porém os nomes das tabelas e das classes continuam sendo `autores`, `livros`, `clientes` e `emprestimos`. 
+
+## Objetivo
+
+Praticar a criação e design de um sistema.
+
+- programação orientada a objetos com TypeScript.
+- organização de código em camadas (controllers, services, repositories).
+- programação assíncrona com `async`/`await` e `Promise`.
+- tratamento de erros para não quebrar o sistema.
+- modelagem e consulta de dados relacionais com SQL.
+- commits padronizados e utilização do Git.
+
+
+## Tecnologias utilizadas
+
+| Tecnologia | Uso |
+| :---- | :---- |
+| Node.js | Ambiente de execução da aplicação |
+| TypeScript | Linguagem de programação |
+| PostgreSQL | Banco de dados |
+| draw.io | Elaboração do diagrama |
+| GitHub | Versionamento do código |
