@@ -120,3 +120,69 @@ npm start
 Ao iniciar, a aplicação carrega os dados iniciais (do `src/data/seed.ts`) e exibe o menu principal. 
 
 Para encerrar, só escolher a opção `0` (Encerrar aplicação).
+
+
+## Arquitetura do projeto
+
+O código é organizado em camadas, cada uma com uma responsabilidade:
+
+```
+Usuário (no terminal) -> menus -> controllers -> services -> repositories -> Dados em memória
+
+data/seed.ts (dados iniciais) -> repositories 
+```
+
+| Camada | Responsabilidade |
+| :---- | :---- |
+| `menus/` | Exibe os menus e realiza a navegação e interação |
+| `controllers/` | Recebe as entradas do usuário, chama os services e exibe os resultados e mensagens |
+| `services/` | Regras de negócio e validações |
+| `repositories/` | Armazenamento e recuperação dos dados em memória (`Map`), com métodos assíncronos |
+| `models/` | Classes e interfaces das entidades (`Autor`, `Livro`, `Cliente`, `Emprestimo`) |
+| `utils/` | Funções auxiliares: leitura do terminal, validações, formatação de datas e tratamento de erros |
+| `data/` | Dados iniciais (`seed.ts`) |
+
+Decisões de projeto:
+
+- **Dependências na Main:** os repositories e services são criados na `main.ts` e passados para quem precisa deles, de modo que todos compartilham as mesmas instâncias.
+- **Coleções privadas:** só o repository acessa os dados em memória, as outras camadas acessam o dados através dos métodos.
+- **Erros de regra de negócio:** os services lançam `ErroDeNegocio`. Os controllers capturam o erro e exibem uma mensagem clara, sem interromper a aplicação.
+- **Sem duplicação:** validações reutilizáveis (texto obrigatório, email válido) ficam em `utils/validacoes.ts`.
+
+## Funcionalidades implementadas
+
+**Autores**
+- Cadastrar, listar, consultar por id, atualizar e remover.
+
+**Livros**
+- Cadastrar (vinculado a um autor existente), listar (com o nome do autor e a quantidade disponível), consultar por id, atualizar e remover.
+
+**Clientes**
+- Cadastrar, listar, consultar por id, atualizar e remover, com email único e validado.
+
+**Empréstimos**
+- Registrar empréstimo (diminui a quantidade disponível do livro).
+- Registrar devolução (aumenta a quantidade disponível e registra a data).
+- Listar empréstimos com livro, cliente, data do empréstimo e situação (ativo ou devolvido).
+
+**Regras de negócio e validações**
+
+| Situação | Comportamento |
+| :---- | :---- |
+| Nome, título ou e-mail vazio | Recusado |
+| E-mail com formato inválido | Recusado |
+| E-mail já cadastrado para outro cliente | Recusado |
+| Quantidade negativa ou não inteira | Recusada |
+| Cadastro de livro com autor inexistente | Recusado |
+| Operação com autor, livro, cliente ou empréstimo inexistente | Recusada, com mensagem informando o id |
+| Empréstimo de livro sem exemplares disponíveis | Recusado |
+| Devolução de empréstimo já devolvido | Recusada |
+| Remoção de autor que possui livros | Recusada |
+| Remoção de livro ou cliente que possui empréstimos registrados (ativos ou devolvidos) | Recusada, para preservar o histórico |
+| Entrada não numérica onde se espera um id | Recusada, e o menu continua funcionando |
+
+**Banco de dados (PostgreSQL)**
+- Com chaves primárias e estrangeiras e restrições `NOT NULL`, `UNIQUE` e `CHECK`.
+- Dados de exemplo, atualização e remoção de registros.
+- Consultas relacionais.
+
