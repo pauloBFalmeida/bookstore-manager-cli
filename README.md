@@ -81,6 +81,42 @@ Devem aparecer os livros cadastrados. Na saída da execução completa também a
 
 Relacionamentos:
 
-- 1 **autor** possui N **livros** (1:N);
-- 1 **livro** está em N **empréstimos** (1:N);
+- 1 **autor** possui N **livros** (1:N).
+- 1 **livro** está em N **empréstimos** (1:N).
 - 1 **cliente** pode fazer N **empréstimos** (1:N).
+
+
+# Instalação
+
+```bash
+git clone https://github.com/SEU_USUARIO/bookstore-manager-cli.git
+cd bookstore-manager-cli
+npm install
+```
+
+O `npm install` baixa as dependências listadas no `package.json` e cria a pasta `node_modules/`.
+
+## Execução da aplicação
+
+**Modo desenvolvimento** (executa o TypeScript diretamente):
+
+```bash
+npm run dev
+```
+
+**Modo produção** (compila para JavaScript e executa o resultado):
+
+```bash
+npm run build
+npm start
+```
+
+| Script | Descrição |
+| :---- | :---- |
+| `npm run dev` | Executa `src/main.ts` com o `tsx` |
+| `npm run build` | Compila o projeto com `tsc` para a pasta `dist/` |
+| `npm start` | Executa a versão compilada (`dist/main.js`) |
+
+Ao iniciar, a aplicação carrega os dados iniciais (do `src/data/seed.ts`) e exibe o menu principal. 
+
+Para encerrar, só escolher a opção `0` (Encerrar aplicação).
