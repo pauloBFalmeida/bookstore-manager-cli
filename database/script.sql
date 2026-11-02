@@ -136,3 +136,44 @@ SELECT a.nome AS autor,
 FROM autores a
 LEFT JOIN livros l ON l.autor_id = a.id
 ORDER BY a.nome, l.titulo;
+
+-- GROUP BY
+-- Total de empréstimos de cada cliente
+-- agrupa os clientes, e faz o COUNT em cada grupo
+SELECT c.nome AS cliente,
+       COUNT(e.id) AS total_emprestimos
+FROM clientes c
+INNER JOIN emprestimos e ON e.cliente_id = c.id
+GROUP BY c.id, c.nome
+ORDER BY c.nome;
+
+-- ORDER BY
+-- titulos em ordem por autor (A a Z)
+-- dentro de cada autor pela maior quantidade disponivel
+SELECT a.nome AS autor,
+       l.titulo AS titulo,
+       l.quantidade_disponivel
+FROM livros l
+INNER JOIN autores a ON a.id = l.autor_id
+ORDER BY a.nome ASC, l.quantidade_disponivel DESC;
+
+-- LIMIT
+-- 3 empréstimos mais recentes, ordenados
+SELECT e.id AS emprestimo,
+       l.titulo AS titulo,
+       c.nome AS cliente,
+       e.data_emprestimo
+FROM emprestimos e
+INNER JOIN livros l   ON l.id = e.livro_id
+INNER JOIN clientes c ON c.id = e.cliente_id
+ORDER BY e.data_emprestimo DESC
+LIMIT 3;
+
+-- COUNT, SUM, AVG, MIN, MAX
+SELECT COUNT(l.id)                            AS total_livros,
+       COUNT(DISTINCT l.autor_id)             AS autores_com_livros,
+       SUM(l.quantidade_disponivel)           AS total_exemplares,
+       ROUND(AVG(l.quantidade_disponivel), 2) AS media_por_livro,
+       MIN(l.quantidade_disponivel)           AS menor_quantidade,
+       MAX(l.quantidade_disponivel)           AS maior_quantidade
+FROM livros l;
