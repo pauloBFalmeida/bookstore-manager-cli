@@ -122,7 +122,7 @@ Ao iniciar, a aplicação carrega os dados iniciais (do `src/data/seed.ts`) e ex
 Para encerrar, só escolher a opção `0` (Encerrar aplicação).
 
 
-## Arquitetura do projeto
+# Arquitetura do projeto
 
 O código é organizado em camadas, cada uma com uma responsabilidade:
 
@@ -230,10 +230,692 @@ Uma branch por funcionalidade, integradas à `develop` e, ao final na `main`:
 | `feat/banco-dados` | `script.sql`, DER e dados iniciais |
 | `docs/readme` | Documentação |
 
-## Kanban
 
-Acompanhamento das tarefas do projeto: [Link do Kanban](https://github.com/users/pauloBFalmeida/projects/2/views/1)
 
-## Integrantes da equipe
+# Exemplos de utilização
+
+### Cadastrar Livro
+
+**Menu principal:**
+```
+=== BookStore Manager CLI ===
+1 - Autores
+2 - Livros
+3 - Clientes
+4 - Empréstimos
+0 - Encerrar aplicação
+Escolha uma opção:
+```
+Input: `1`
+(Autores)
+
+**Menu Autores:**
+```
+-=- Autores -=-
+1 - Cadastrar autor
+2 - Listar autores
+3 - Consultar autor por id
+4 - Atualizar autor
+5 - Remover autor
+0 - Voltar
+Escolha uma opção:
+```
+Input: `2`
+(Listar autores)
+
+**Lista Autores:**
+```
+--- Autores ---
+1 - Milton Nascimento
+2 - Caetano Veloso
+3 - Gilberto Gil
+4 - Chico Buarque
+5 - Elis Regina
+
+-=- Autores -=-
+1 - Cadastrar autor
+2 - Listar autores
+3 - Consultar autor por id
+4 - Atualizar autor
+5 - Remover autor
+0 - Voltar
+Escolha uma opção: 
+```
+
+Input: `0`
+(Voltar ao menu principal)
+
+**Menu principal:**
+```
+=== BookStore Manager CLI ===
+1 - Autores
+2 - Livros
+3 - Clientes
+4 - Empréstimos
+0 - Encerrar aplicação
+Escolha uma opção:
+```
+Input: `2`
+(Livros)
+
+**Menu Livros:**
+```
+-=- Livros -=-
+1 - Cadastrar livro
+2 - Listar livros
+3 - Consultar livro por id
+4 - Atualizar livro
+5 - Remover livro
+0 - Voltar
+Escolha uma opção:
+```
+Input: `2`
+(Listar livros)
+
+**Listar Livros:**
+```
+--- Livros ---
+1 - Travessia | Autor: Milton Nascimento | Disponíveis: 2
+2 - Maria, Maria | Autor: Milton Nascimento | Disponíveis: 1
+3 - Sampa | Autor: Caetano Veloso | Disponíveis: 0
+4 - Aquele Abraço | Autor: Gilberto Gil | Disponíveis: 3
+5 - Andar com Fé | Autor: Gilberto Gil | Disponíveis: 2
+6 - Construção | Autor: Chico Buarque | Disponíveis: 1
+
+-=- Livros -=-
+1 - Cadastrar livro
+2 - Listar livros
+3 - Consultar livro por id
+4 - Atualizar livro
+5 - Remover livro
+0 - Voltar
+Escolha uma opção:
+```
+Input: `1`
+(Cadastrar livro)
+
+**Cadastrar Livro:**
+```
+Título do livro:
+```
+Input: `Bailes da Vida`
+
+```
+Quantidade disponível:
+```
+Input: `2`
+(2 Livros)
+
+```
+Id do autor:
+```
+Input: `1`
+(Milton Nascimento)
+ 
+```
+Livro cadastrado com sucesso! (id 7)
+
+-=- Livros -=-
+1 - Cadastrar livro
+2 - Listar livros
+3 - Consultar livro por id
+4 - Atualizar livro
+5 - Remover livro
+0 - Voltar
+Escolha uma opção:
+```
+Input: `2`
+(Listar livros)
+
+**Listar Livros: Adicionado 7 - Bailes da Vida**
+
+```
+--- Livros ---
+1 - Travessia | Autor: Milton Nascimento | Disponíveis: 2
+2 - Maria, Maria | Autor: Milton Nascimento | Disponíveis: 1
+3 - Sampa | Autor: Caetano Veloso | Disponíveis: 0
+4 - Aquele Abraço | Autor: Gilberto Gil | Disponíveis: 3
+5 - Andar com Fé | Autor: Gilberto Gil | Disponíveis: 2
+6 - Construção | Autor: Chico Buarque | Disponíveis: 1
+7 - Bailes da Vida | Autor: Milton Nascimento | Disponíveis: 2
+```
+
+---
+### Cadastrar Cliente
+
+**Menu Principal:**
+```
+=== BookStore Manager CLI ===
+1 - Autores
+2 - Livros
+3 - Clientes
+4 - Empréstimos
+0 - Encerrar aplicação
+Escolha uma opção:
+```
+Input: `3`
+(menu Clientes)
+
+**Menu Clientes:**
+```
+-=- Clientes -=-
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Consultar cliente por id
+4 - Atualizar cliente
+5 - Remover cliente
+0 - Voltar
+Escolha uma opção:
+``` 
+Input: `2`
+(Listar Clientes)
+
+**Listar Clientes:**
+```
+--- Clientes ---
+1 - Ana Souza | ana.souza@email.com
+2 - Bruno Lima | bruno.lima@email.com
+3 - Carla Mendes | carla.mendes@email.com
+4 - Diego Rocha | diego.rocha@email.com
+5 - Elisa Martins | elisa.martins@email.com
+
+-=- Clientes -=-
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Consultar cliente por id
+4 - Atualizar cliente
+5 - Remover cliente
+0 - Voltar
+Escolha uma opção: 
+```
+Input: `1`
+(Cadastrar cliente)
+
+**Cadastrar Clientes:**
+```
+Nome do cliente:
+``` 
+Input: `Paulo`
+
+```
+E-mail do cliente: 
+```
+Input: `paulo@gmail.com`
+
+```
+Cliente cadastrado com sucesso! (id 6)
+
+-=- Clientes -=-
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Consultar cliente por id
+4 - Atualizar cliente
+5 - Remover cliente
+0 - Voltar
+Escolha uma opção: 
+```
+Input: `3`
+(Consultar cliente por id)
+
+**Consultar cliente por id:**
+```
+Id do cliente: 
+```
+Input: `6`
+(Id 6 que acabou de ser cadastrado)
+
+```
+--- Cliente encontrado ---
+6 - Paulo | paulo@gmail.com
+```
+
+
+
+
+
+
+
+
+
+
+---
+### Cadastrar Empréstimo
+
+**Menu Principal:**
+```
+=== BookStore Manager CLI ===
+1 - Autores
+2 - Livros
+3 - Clientes
+4 - Empréstimos
+0 - Encerrar aplicação
+Escolha uma opção:
+```
+Input: `4`
+(Menu Empréstimos)
+
+**Menu Empréstimos:**
+```
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `3`
+(Listar empréstimos)
+
+
+**Lista Empréstimos:**
+```
+--- Empréstimos ---
+1 - Livro: Travessia | Cliente: Ana Souza | Emprestado em 01/10/2026 | Devolvido em 08/10/2026
+2 - Livro: Sampa | Cliente: Bruno Lima | Emprestado em 10/10/2026 | Ativo
+3 - Livro: Maria, Maria | Cliente: Carla Mendes | Emprestado em 12/10/2026 | Ativo
+4 - Livro: Travessia | Cliente: Bruno Lima | Emprestado em 15/10/2026 | Ativo
+5 - Livro: Aquele Abraço | Cliente: Ana Souza | Emprestado em 05/10/2026 | Devolvido em 12/10/2026
+6 - Livro: Travessia | Cliente: Diego Rocha | Emprestado em 20/09/2026 | Devolvido em 27/09/2026
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `1`
+(Realizar empréstimo)
+
+**Realizar Empréstimo:**
+```
+Id do livro: 
+```
+Input: `7`
+(_Bailes da Vida_ criado anteriormente)
+
+```
+Id do cliente: 
+```
+Input: `6`
+(_Paulo_ cadastrado anteriormente)
+
+```
+Empréstimo registrado com sucesso! (id 7)
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+``` 
+Input: `3`
+(Listar empréstimos)
+
+
+**Lista Empréstimos:**
+```
+--- Empréstimos ---
+1 - Livro: Travessia | Cliente: Ana Souza | Emprestado em 01/10/2026 | Devolvido em 08/10/2026
+2 - Livro: Sampa | Cliente: Bruno Lima | Emprestado em 10/10/2026 | Ativo
+3 - Livro: Maria, Maria | Cliente: Carla Mendes | Emprestado em 12/10/2026 | Ativo
+4 - Livro: Travessia | Cliente: Bruno Lima | Emprestado em 15/10/2026 | Ativo
+5 - Livro: Aquele Abraço | Cliente: Ana Souza | Emprestado em 05/10/2026 | Devolvido em 12/10/2026
+6 - Livro: Travessia | Cliente: Diego Rocha | Emprestado em 20/09/2026 | Devolvido em 27/09/2026
+7 - Livro: Bailes da Vida | Cliente: Paulo | Emprestado em 02/11/2026 | Ativo
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `1`
+(Realizar empréstimo)
+
+**Realizar Empréstimo de novo:**
+```
+Id do livro: 
+```
+Input: `7`
+(_Bailes da Vida_ igual anterior)
+
+```
+Id do cliente: 
+```
+Input: `1`
+(_Ana Souza_ outra cliente)
+
+```
+Empréstimo registrado com sucesso! (id 8)
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção: 
+```
+Input: `3`
+(Listar empréstimos)
+
+
+**Lista Empréstimos:**
+```
+--- Empréstimos ---
+1 - Livro: Travessia | Cliente: Ana Souza | Emprestado em 01/10/2026 | Devolvido em 08/10/2026
+2 - Livro: Sampa | Cliente: Bruno Lima | Emprestado em 10/10/2026 | Ativo
+3 - Livro: Maria, Maria | Cliente: Carla Mendes | Emprestado em 12/10/2026 | Ativo
+4 - Livro: Travessia | Cliente: Bruno Lima | Emprestado em 15/10/2026 | Ativo
+5 - Livro: Aquele Abraço | Cliente: Ana Souza | Emprestado em 05/10/2026 | Devolvido em 12/10/2026
+6 - Livro: Travessia | Cliente: Diego Rocha | Emprestado em 20/09/2026 | Devolvido em 27/09/2026
+7 - Livro: Bailes da Vida | Cliente: Paulo | Emprestado em 02/11/2026 | Ativo
+8 - Livro: Bailes da Vida | Cliente: Ana Souza | Emprestado em 02/11/2026 | Ativo
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `1`
+(Realizar empréstimo)
+
+**Realizar Empréstimo de novo:**
+```
+Id do livro: 
+```
+Input: `7`
+(_Bailes da Vida_ igual anterior)
+
+```
+Id do cliente: 
+```
+Input: `6`
+(_Paulo_ outra vez)
+
+```
+Aviso: O livro "Bailes da Vida" não esta disponível.
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `2`
+(Registrar devolução)
+
+**Realizar Devolução:**
+```
+Id do empréstimo a devolver:
+```
+Input: `7`
+(id do primeiro emprestimo do paulo)
+
+```
+Devolução registrada com sucesso!
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `3`
+(Listar empréstimos)
+
+
+**Lista Empréstimos:**
+```
+--- Empréstimos ---
+1 - Livro: Travessia | Cliente: Ana Souza | Emprestado em 01/10/2026 | Devolvido em 08/10/2026
+2 - Livro: Sampa | Cliente: Bruno Lima | Emprestado em 10/10/2026 | Ativo
+3 - Livro: Maria, Maria | Cliente: Carla Mendes | Emprestado em 12/10/2026 | Ativo
+4 - Livro: Travessia | Cliente: Bruno Lima | Emprestado em 15/10/2026 | Ativo
+5 - Livro: Aquele Abraço | Cliente: Ana Souza | Emprestado em 05/10/2026 | Devolvido em 12/10/2026
+6 - Livro: Travessia | Cliente: Diego Rocha | Emprestado em 20/09/2026 | Devolvido em 27/09/2026
+7 - Livro: Bailes da Vida | Cliente: Paulo | Emprestado em 02/11/2026 | Devolvido em 02/11/2026
+8 - Livro: Bailes da Vida | Cliente: Ana Souza | Emprestado em 02/11/2026 | Ativo
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `1`
+(Realizar empréstimo)
+
+**Realizar Empréstimo de novo:**
+```
+Id do livro: 
+```
+Input: `7`
+(_Bailes da Vida_ igual anterior)
+
+```
+Id do cliente: 
+```
+Input: `6`
+(_Paulo_ outra vez)
+
+```
+Empréstimo registrado com sucesso! (id 9)
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção: 
+```
+Input: `3`
+(Listar empréstimos)
+
+**Lista Empréstimos:**
+```
+--- Empréstimos ---
+1 - Livro: Travessia | Cliente: Ana Souza | Emprestado em 01/10/2026 | Devolvido em 08/10/2026
+2 - Livro: Sampa | Cliente: Bruno Lima | Emprestado em 10/10/2026 | Ativo
+3 - Livro: Maria, Maria | Cliente: Carla Mendes | Emprestado em 12/10/2026 | Ativo
+4 - Livro: Travessia | Cliente: Bruno Lima | Emprestado em 15/10/2026 | Ativo
+5 - Livro: Aquele Abraço | Cliente: Ana Souza | Emprestado em 05/10/2026 | Devolvido em 12/10/2026
+6 - Livro: Travessia | Cliente: Diego Rocha | Emprestado em 20/09/2026 | Devolvido em 27/09/2026
+7 - Livro: Bailes da Vida | Cliente: Paulo | Emprestado em 02/11/2026 | Devolvido em 02/11/2026
+8 - Livro: Bailes da Vida | Cliente: Ana Souza | Emprestado em 02/11/2026 | Ativo
+9 - Livro: Bailes da Vida | Cliente: Paulo | Emprestado em 02/11/2026 | Ativo
+```
+
+---
+### Realizar um Erro no Empréstimo
+
+**Menu Empréstimos:**
+```
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+```
+Input: `1`
+(Realizar empréstimo)
+
+**Realizar Empréstimo:**
+```
+Id do livro: 
+```
+Input: `9`
+(NÃO cadastrado)
+
+```
+Id do cliente: 
+```
+Input: `1`
+(cadastrado)
+
+```
+Aviso: Livro com id 9 não encontrado.
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção:
+``` 
+Input: `1`
+(Realizar empréstimo)
+
+**Realizar Empréstimo:**
+```
+Id do livro: 
+```
+Input: `7`
+(cadastrado)
+
+```
+Id do cliente: 
+```
+Input: `9`
+(NÃO cadastrado)
+
+```
+Aviso: Cliente com id 9 não encontrado.
+
+-=- Empréstimos -=-
+1 - Realizar empréstimo
+2 - Registrar devolução
+3 - Listar empréstimos
+0 - Voltar
+Escolha uma opção: 
+```
+
+---
+### Remover Cliente
+
+**Menu Principal:**
+```
+=== BookStore Manager CLI ===
+1 - Autores
+2 - Livros
+3 - Clientes
+4 - Empréstimos
+0 - Encerrar aplicação
+Escolha uma opção:
+``` 
+Input: `3`
+(Menu Clientes)
+
+**Menu Clientes:**
+```
+-=- Clientes -=-
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Consultar cliente por id
+4 - Atualizar cliente
+5 - Remover cliente
+0 - Voltar
+Escolha uma opção:
+``` 
+Input: `5`
+(Remover cliente)
+
+**Remover Cliente:**
+``` 
+Id do cliente a remover: 
+``` 
+Input: `6`
+(id Paulo)
+
+``` 
+Aviso: Não é possível remover o cliente, ele possui 3 emprestimos.
+
+-=- Clientes -=-
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Consultar cliente por id
+4 - Atualizar cliente
+5 - Remover cliente
+0 - Voltar
+Escolha uma opção:
+``` 
+Input: `1`
+(Cadastrar cliente)
+
+**Cadastrar Cliente:**
+``` 
+Nome do cliente: 
+``` 
+Input: `Fogaca`
+
+``` 
+E-mail do cliente: 
+``` 
+Input: `fogaca.com`
+(email invalido)
+
+``` 
+Aviso: O e-mail informado não é válido.
+
+-=- Clientes -=-
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Consultar cliente por id
+4 - Atualizar cliente
+5 - Remover cliente
+0 - Voltar
+Escolha uma opção:
+```
+Input: `1`
+(Cadastrar cliente)
+
+**Cadastrar Cliente:**
+``` 
+Nome do cliente: 
+```
+Input: `Fogaca`
+
+``` 
+E-mail do cliente:
+```  
+Input: `fogaca@email.com`
+(email correto)
+
+``` 
+Cliente cadastrado com sucesso! (id 7)
+
+-=- Clientes -=-
+1 - Cadastrar cliente
+2 - Listar clientes
+3 - Consultar cliente por id
+4 - Atualizar cliente
+5 - Remover cliente
+0 - Voltar
+Escolha uma opção:
+``` 
+Input: `5`
+(Remover cliente)
+
+**Remover Cliente:**
+``` 
+Id do cliente a remover: 
+``` 
+Input: `7`
+(id Fogaca)
+
+``` 
+Cliente removido com sucesso!
+
+``` 
+
+# Integrantes da equipe
 
 - **Paulo Barbato Fogaça de Almeida** - desenvolvimento individual
