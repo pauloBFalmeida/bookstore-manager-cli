@@ -919,3 +919,11 @@ Cliente removido com sucesso!
 # Integrantes da equipe
 
 - **Paulo Barbato Fogaça de Almeida** - desenvolvimento individual
+
+## Vídeo Explicativo
+
+Vídeo Explicativo: [Link do Drive com Vídeo](https://drive.google.com/drive/folders/1rBo29QbbndeQy6hfiCWZk2FRLXzAl_Cp)
+
+## Kanban
+
+Acompanhamento das tarefas no Kanban: [Link do Kanban](https://github.com/users/pauloBFalmeida/projects/2/views/1)
