@@ -1,0 +1,27 @@
+{
+  "name": "bookstore-manager-cli",
+  "version": "1.0.0",
+  "description": "Aplicação em Node.js com TypeScript criado para o Projeto Avaliativo para o curso de Back-end",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "tsx src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauloBFalmeida/bookstore-manager-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauloBFalmeida/bookstore-manager-cli/issues"
+  },
+  "homepage": "https://github.com/pauloBFalmeida/bookstore-manager-cli#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
