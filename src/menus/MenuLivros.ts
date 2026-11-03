@@ -8,7 +8,7 @@ export class MenuLivros {
     let voltar = false;
 
     while (!voltar) {
-      console.log("\n--- Livros ---");
+      console.log("\n-=- Livros -=-");
       console.log("1 - Cadastrar livro");
       console.log("2 - Listar livros");
       console.log("3 - Consultar livro por id");

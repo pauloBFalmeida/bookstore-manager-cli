@@ -8,7 +8,7 @@ export class MenuAutores {
     let voltar = false;
 
     while (!voltar) {
-      console.log("\n--- Autores ---");
+      console.log("\n-=- Autores -=-");
       console.log("1 - Cadastrar autor");
       console.log("2 - Listar autores");
       console.log("3 - Consultar autor por id");

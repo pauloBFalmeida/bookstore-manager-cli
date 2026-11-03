@@ -8,7 +8,7 @@ export class MenuEmprestimos {
     let voltar = false;
 
     while (!voltar) {
-      console.log("\n--- Empréstimos ---");
+      console.log("\n-=- Empréstimos -=-");
       console.log("1 - Realizar empréstimo");
       console.log("2 - Registrar devolução");
       console.log("3 - Listar empréstimos");

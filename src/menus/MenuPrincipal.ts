@@ -16,7 +16,7 @@ export class MenuPrincipal {
     let encerrar = false;
 
     while (!encerrar) {
-      console.log("\n--- BookStore Manager CLI ---");
+      console.log("\n=== BookStore Manager CLI ===");
       console.log("1 - Autores");
       console.log("2 - Livros");
       console.log("3 - Clientes");

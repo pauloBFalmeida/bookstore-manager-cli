@@ -8,7 +8,7 @@ export class MenuClientes {
     let voltar = false;
 
     while (!voltar) {
-      console.log("\n--- Clientes ---");
+      console.log("\n-=- Clientes -=-");
       console.log("1 - Cadastrar cliente");
       console.log("2 - Listar clientes");
       console.log("3 - Consultar cliente por id");
