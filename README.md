@@ -916,6 +916,25 @@ Cliente removido com sucesso!
 
 ``` 
 
+---
+## Sair do Programa
+
+```
+=== BookStore Manager CLI ===
+1 - Autores
+2 - Livros
+3 - Clientes
+4 - Empréstimos
+0 - Encerrar aplicação
+Escolha uma opção:
+``` 
+Input: `0` (Encerrar)
+
+```
+Aplicação encerrada.
+
+```
+
 # Integrantes da equipe
 
 - **Paulo Barbato Fogaça de Almeida** - desenvolvimento individual
