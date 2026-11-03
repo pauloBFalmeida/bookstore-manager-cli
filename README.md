@@ -89,7 +89,7 @@ Relacionamentos:
 # Instalação
 
 ```bash
-git clone https://github.com/SEU_USUARIO/bookstore-manager-cli.git
+git clone https://github.com/pauloBFalmeida/bookstore-manager-cli.git
 cd bookstore-manager-cli
 npm install
 ```
@@ -119,7 +119,7 @@ npm start
 
 Ao iniciar, a aplicação carrega os dados iniciais (do `src/data/seed.ts`) e exibe o menu principal. 
 
-Para encerrar, só escolher a opção `0` (Encerrar aplicação).
+Para encerrar, quando estiver no menu principal (`=== BookStore Manager CLI ===`) só escolher a opção `0` (`0 - Encerrar aplicação`).
 
 
 # Arquitetura do projeto
@@ -469,15 +469,6 @@ Input: `6`
 6 - Paulo | paulo@gmail.com
 ```
 
-
-
-
-
-
-
-
-
-
 ---
 ### Cadastrar Empréstimo
 
@@ -734,7 +725,7 @@ Input: `3`
 ```
 
 ---
-### Realizar um Erro no Empréstimo
+### Realizar um Erro durante o Empréstimo
 
 **Menu Empréstimos:**
 ```
@@ -799,7 +790,7 @@ Escolha uma opção:
 ```
 
 ---
-### Remover Cliente
+### Remover um Cliente
 
 **Menu Principal:**
 ```
@@ -913,7 +904,6 @@ Input: `7`
 
 ``` 
 Cliente removido com sucesso!
-
 ``` 
 
 ---
@@ -932,7 +922,6 @@ Input: `0` (Encerrar)
 
 ```
 Aplicação encerrada.
-
 ```
 
 # Integrantes da equipe
